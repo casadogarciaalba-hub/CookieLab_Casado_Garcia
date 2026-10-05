@@ -61,10 +61,8 @@ if (usuario === null) {
     alert("¡Bienvenida/o a CookieLab, " + usuario + "! 🍪");
   }
 }
-
-
-
 // Si YA existe, no preguntamos nada: el saludo se pinta más abajo.
+
 
 
 
@@ -141,8 +139,6 @@ selectIdioma.addEventListener("change", function () {
 
 
 
-
-
 /* =============================================================
    FASE 4 · Contador de visitas
    ============================================================= */
@@ -183,3 +179,42 @@ pintarVisitas();
 selectIdioma.addEventListener("change", pintarVisitas);
 
 
+/* =============================================================
+   FASE 5 · Panel de control
+   ============================================================= */
+
+/**
+ * borrarCookie(nombre)
+ * Para borrar una cookie se guarda vacía con max-age=0.
+ */
+function borrarCookie(nombre) {
+  document.cookie = nombre + "=; max-age=0; path=/";
+}
+
+// Botón "Cambiar mi nombre": pregunta con prompt y actualiza cookie y saludo.
+document.getElementById("btn-cambiar").addEventListener("click", function () {
+  const nuevo = prompt("¿Cómo quieres que te llame?", usuario || "");
+
+  if (nuevo && nuevo.trim() !== "") {
+    usuario = nuevo.trim();
+    primeraVisita = false;
+    guardarCookie("usuario", usuario, TREINTA_DIAS);
+    pintarSaludo();
+  }
+});
+
+// Botón "Olvidarme": tras un confirm, borra TODAS las cookies.
+document.getElementById("btn-olvidar").addEventListener("click", function () {
+  // confirm devuelve true (Aceptar) o false (Cancelar).
+  const seguro = confirm("¿Seguro que quieres que CookieLab te olvide? Se borrarán todos tus datos.");
+
+  if (seguro) {
+    borrarCookie("usuario");
+    borrarCookie("tema");
+    borrarCookie("idioma");
+    borrarCookie("visitas");
+
+    alert("Listo, te hemos olvidado 👋 La página se recargará como si fueras nueva.");
+    location.reload();
+  }
+});

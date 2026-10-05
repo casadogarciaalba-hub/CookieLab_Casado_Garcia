@@ -40,8 +40,6 @@ h1 {
   min-height: 1.5em;
 }
 
-
-
 /* ---------- FASE 3 · Preferencias ---------- */
 .preferencias {
   display: flex;
@@ -74,7 +72,58 @@ body,
   transition: background 0.3s, color 0.3s;
 }
 
-/* ---------- Tema CLARO (se activa con la clase "claro" en el body) ---------- */
+
+
+/* ---------- FASE 4 · Contador de visitas ---------- */
+.visitas {
+  display: inline-block;
+  margin-top: 14px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: #3a2a1f;
+  color: #e0a458;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+/* ---------- FASE 5 · Panel de control ---------- */
+.panel-control {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 24px;
+  flex-wrap: wrap;
+}
+
+.boton {
+  background: #e0a458;
+  color: #1b1410;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.15s, filter 0.15s;
+}
+
+.boton:hover {
+  filter: brightness(1.1);
+  transform: translateY(-2px);
+}
+
+.boton-peligro {
+  background: transparent;
+  color: #ff7a6b;
+  border: 1px solid #ff7a6b;
+}
+
+.boton-peligro:hover {
+  background: #ff7a6b;
+  color: #1b1410;
+}
+
+/* ---------- Tema CLARO (clase "claro" en el body) ---------- */
 body.claro {
   background: #fdf3e6;
   color: #3b2a1e;
@@ -99,21 +148,8 @@ body.claro .preferencias select {
   border-color: #ecd5bb;
 }
 
-
-
-/* ---------- FASE 4 · Contador de visitas ---------- */
-.visitas {
-  display: inline-block;
-  margin-top: 14px;
-  padding: 6px 14px;
-  border-radius: 999px;
-  background: #3a2a1f;
-  color: #e0a458;
-  font-size: 0.95rem;
-  font-weight: 600;
-}
-
 body.claro .visitas {
   background: #fbe7d0;
   color: #b5651d;
 }
+

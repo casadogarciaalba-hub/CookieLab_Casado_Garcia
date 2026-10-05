@@ -39,3 +39,62 @@ h1 {
   font-size: 1.2rem;
   min-height: 1.5em;
 }
+
+
+
+/* ---------- FASE 3 · Preferencias ---------- */
+.preferencias {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 24px;
+  flex-wrap: wrap;
+}
+
+.preferencias label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.85rem;
+  color: #c9a98a;
+}
+
+.preferencias select {
+  background: #1b1410;
+  color: #f5ebe0;
+  border: 1px solid #4a3628;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+body,
+.tarjeta {
+  transition: background 0.3s, color 0.3s;
+}
+
+/* ---------- Tema CLARO (se activa con la clase "claro" en el body) ---------- */
+body.claro {
+  background: #fdf3e6;
+  color: #3b2a1e;
+}
+
+body.claro .tarjeta {
+  background: #ffffff;
+  border-color: #ecd5bb;
+}
+
+body.claro h1 {
+  color: #b5651d;
+}
+
+body.claro .preferencias label {
+  color: #8a6448;
+}
+
+body.claro .preferencias select {
+  background: #fdf3e6;
+  color: #3b2a1e;
+  border-color: #ecd5bb;
+}

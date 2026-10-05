@@ -9,8 +9,10 @@ console.log("CookieLab iniciado");
 // Duración de las cookies: 30 días en segundos (30 × 24 × 60 × 60).
 const TREINTA_DIAS = 30 * 24 * 60 * 60;
 
-// Párrafo donde se muestra el saludo.
-const saludo = document.getElementById("saludo");
+// Elementos del HTML que vamos a usar.
+const saludo       = document.getElementById("saludo");
+const selectTema   = document.getElementById("select-tema");
+const selectIdioma = document.getElementById("select-idioma");
 
 /**
  * guardarCookie(nombre, valor, segundos)
@@ -45,6 +47,7 @@ function leerCookie(nombre) {
 
 // Al cargar, leemos primero la cookie "usuario".
 let usuario = leerCookie("usuario");
+let primeraVisita = false;
 
 // GUARD: decide qué hacer según exista o no la cookie.
 if (usuario === null) {
@@ -53,13 +56,86 @@ if (usuario === null) {
 
   if (nombre && nombre.trim() !== "") {
     usuario = nombre.trim();
+    primeraVisita = true;
     guardarCookie("usuario", usuario, TREINTA_DIAS);
     alert("¡Bienvenida/o a CookieLab, " + usuario + "! 🍪");
-    saludo.textContent = "Encantada de conocerte, " + usuario + " 🍪";
-  } else {
-    saludo.textContent = "Hola, visitante anónimo 👀";
   }
-} else {
-  // YA EXISTE: no preguntamos nada, saludamos directamente.
-  saludo.textContent = "Hola de nuevo, " + usuario + " 👋";
 }
+
+
+
+// Si YA existe, no preguntamos nada: el saludo se pinta más abajo.
+
+
+
+
+/* =============================================================
+   FASE 3 · Preferencias: tema e idioma
+   ============================================================= */
+
+// Textos del saludo en cada idioma.
+const textos = {
+  es: {
+    nuevo:   "Encantada de conocerte, ",
+    deNuevo: "Hola de nuevo, ",
+    anonimo: "Hola, visitante anónimo 👀"
+  },
+  en: {
+    nuevo:   "Nice to meet you, ",
+    deNuevo: "Welcome back, ",
+    anonimo: "Hello, anonymous visitor 👀"
+  }
+};
+
+/**
+ * pintarSaludo()
+ * Escribe el saludo en el idioma guardado en la cookie "idioma"
+ * (español por defecto).
+ */
+function pintarSaludo() {
+  const idioma = leerCookie("idioma") || "es";
+  const t = textos[idioma];
+
+  if (usuario === null) {
+    saludo.textContent = t.anonimo;
+  } else if (primeraVisita) {
+    saludo.textContent = t.nuevo + usuario + " 🍪";
+  } else {
+    saludo.textContent = t.deNuevo + usuario + " 👋";
+  }
+}
+
+/**
+ * aplicarTema(tema)
+ * Igual que el modo noche: añade o quita la clase "claro" al body.
+ */
+function aplicarTema(tema) {
+  if (tema === "claro") {
+    document.body.classList.add("claro");
+  } else {
+    document.body.classList.remove("claro");
+  }
+}
+
+// Al cargar: aplicamos las preferencias guardadas (o las de por defecto).
+const temaGuardado   = leerCookie("tema")   || "oscuro";
+const idiomaGuardado = leerCookie("idioma") || "es";
+
+selectTema.value   = temaGuardado;
+selectIdioma.value = idiomaGuardado;
+aplicarTema(temaGuardado);
+pintarSaludo();
+
+// Cuando el usuario cambia el tema: lo guardamos y lo aplicamos.
+selectTema.addEventListener("change", function () {
+  guardarCookie("tema", selectTema.value, TREINTA_DIAS);
+  aplicarTema(selectTema.value);
+});
+
+// Cuando cambia el idioma: lo guardamos y repintamos el saludo.
+selectIdioma.addEventListener("change", function () {
+  guardarCookie("idioma", selectIdioma.value, TREINTA_DIAS);
+  pintarSaludo();
+});
+
+

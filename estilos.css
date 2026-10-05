@@ -98,3 +98,22 @@ body.claro .preferencias select {
   color: #3b2a1e;
   border-color: #ecd5bb;
 }
+
+
+
+/* ---------- FASE 4 · Contador de visitas ---------- */
+.visitas {
+  display: inline-block;
+  margin-top: 14px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: #3a2a1f;
+  color: #e0a458;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+body.claro .visitas {
+  background: #fbe7d0;
+  color: #b5651d;
+}

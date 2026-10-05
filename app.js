@@ -139,3 +139,47 @@ selectIdioma.addEventListener("change", function () {
 });
 
 
+
+
+
+
+/* =============================================================
+   FASE 4 · Contador de visitas
+   ============================================================= */
+
+const textoVisitas = document.getElementById("visitas");
+
+// Al cargar, leemos la cookie "visitas".
+let visitas = leerCookie("visitas");
+
+// Si no existe, empezamos en 1. Si existe, le sumamos 1.
+// La cookie guarda TEXTO, así que la pasamos a número con Number.
+if (visitas === null) {
+  visitas = 1;
+} else {
+  visitas = Number(visitas) + 1;
+}
+
+// Guardamos el nuevo valor.
+guardarCookie("visitas", visitas, TREINTA_DIAS);
+
+/**
+ * pintarVisitas()
+ * Muestra el número de visitas en el idioma elegido.
+ */
+function pintarVisitas() {
+  const idioma = leerCookie("idioma") || "es";
+
+  if (idioma === "en") {
+    textoVisitas.textContent = "👣 You have visited this page " + visitas + (visitas === 1 ? " time" : " times");
+  } else {
+    textoVisitas.textContent = "👣 Has visitado esta página " + visitas + (visitas === 1 ? " vez" : " veces");
+  }
+}
+
+pintarVisitas();
+
+// Si cambia el idioma, también traducimos el contador.
+selectIdioma.addEventListener("change", pintarVisitas);
+
+
